@@ -235,13 +235,45 @@ export default function PrivacyPolicy() {
                 title="Contact"
                 description="Des questions sur notre politique de confidentialité ? N'hésitez pas à nous contacter."
               >
-                <div
-                  className="mt-5 p-5 rounded-xl"
-                  style={{ background: "hsl(220 20% 10%)", border: "1px solid hsl(220 15% 15%)" }}
-                >
-                  <p className="text-sm" style={{ color: "hsl(220 10% 60%)" }}>
-                    Pour toute question relative à la confidentialité et au traitement de vos données dans l'application ATOMIC FLIX, vous pouvez nous contacter via la page de l'application sur l'App Store ou le Play Store.
-                  </p>
+                <div className="mt-5 flex flex-col gap-3">
+                  <a
+                    href="mailto:cidakue02@gmail.com"
+                    className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200"
+                    style={{ background: "hsl(220 20% 7%)", border: "1px solid hsl(220 15% 13%)", textDecoration: "none" }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = "hsla(14,100%,57%,0.4)")}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = "hsl(220 15% 13%)")}
+                  >
+                    <div
+                      className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-lg"
+                      style={{ background: "hsla(14,100%,57%,0.12)" }}
+                    >
+                      ✉️
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: "hsl(14 100% 57%)" }}>Email</p>
+                      <p className="text-sm font-medium" style={{ color: "hsl(0 0% 85%)" }}>cidakue02@gmail.com</p>
+                    </div>
+                  </a>
+                  <a
+                    href="https://wa.me/22871394585"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 rounded-xl transition-all duration-200"
+                    style={{ background: "hsl(220 20% 7%)", border: "1px solid hsl(220 15% 13%)", textDecoration: "none" }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = "hsla(120,60%,50%,0.4)")}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = "hsl(220 15% 13%)")}
+                  >
+                    <div
+                      className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 text-lg"
+                      style={{ background: "hsla(120,60%,50%,0.10)" }}
+                    >
+                      💬
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: "hsl(120 60% 55%)" }}>WhatsApp</p>
+                      <p className="text-sm font-medium" style={{ color: "hsl(0 0% 85%)" }}>+228 71 39 45 85</p>
+                    </div>
+                  </a>
                 </div>
               </SectionCard>
             </section>
