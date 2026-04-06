@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
 
   useEffect(() => {
@@ -11,60 +12,123 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
+
   const navLinks = [
     { href: "/", label: "Confidentialité" },
     { href: "/terms", label: "Conditions d'utilisation" },
   ];
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? "hsla(220,22%,6%,0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid hsl(220 15% 14%)" : "1px solid transparent",
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <div className="flex items-center gap-3 cursor-pointer group">
-            <img
-              src="/logo.png"
-              alt="ATOMIC FLIX"
-              className="w-10 h-10 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
-            />
-            <div>
-              <span className="font-black text-base tracking-widest block" style={{ color: "hsl(0 0% 96%)", letterSpacing: "0.12em" }}>
-                ATOMIC FLIX
-              </span>
-              <span className="text-[10px] uppercase tracking-widest block" style={{ color: "hsl(14 100% 57%)", letterSpacing: "0.2em" }}>
-                Legal Center
-              </span>
-            </div>
-          </div>
-        </Link>
-
-        <nav className="flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = location === link.href;
-            return (
-              <Link key={link.href} href={link.href}>
-                <span
-                  className="text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 whitespace-nowrap"
-                  style={{
-                    color: isActive ? "hsl(14 100% 57%)" : "hsl(220 10% 55%)",
-                    background: isActive ? "hsla(14,100%,57%,0.10)" : "transparent",
-                    border: isActive ? "1px solid hsla(14,100%,57%,0.25)" : "1px solid transparent",
-                  }}
-                >
-                  {link.label}
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled || menuOpen ? "hsla(220,22%,6%,0.97)" : "transparent",
+          backdropFilter: scrolled || menuOpen ? "blur(16px)" : "none",
+          borderBottom: scrolled || menuOpen ? "1px solid hsl(220 15% 14%)" : "1px solid transparent",
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <div className="flex items-center gap-2.5 cursor-pointer group">
+              <img
+                src="/logo.png"
+                alt="ATOMIC FLIX"
+                className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+              />
+              <div>
+                <span className="font-black text-sm sm:text-base tracking-widest block" style={{ color: "hsl(0 0% 96%)", letterSpacing: "0.1em" }}>
+                  ATOMIC FLIX
                 </span>
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
-    </header>
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-widest block" style={{ color: "hsl(14 100% 57%)", letterSpacing: "0.18em" }}>
+                  Legal Center
+                </span>
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden sm:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = location === link.href;
+              return (
+                <Link key={link.href} href={link.href}>
+                  <span
+                    className="text-xs font-semibold px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 whitespace-nowrap"
+                    style={{
+                      color: isActive ? "hsl(14 100% 57%)" : "hsl(220 10% 55%)",
+                      background: isActive ? "hsla(14,100%,57%,0.10)" : "transparent",
+                      border: isActive ? "1px solid hsla(14,100%,57%,0.25)" : "1px solid transparent",
+                    }}
+                  >
+                    {link.label}
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Mobile hamburger */}
+          <button
+            className="sm:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 rounded-lg transition-colors duration-200"
+            onClick={() => setMenuOpen((v) => !v)}
+            style={{ background: menuOpen ? "hsla(14,100%,57%,0.10)" : "transparent" }}
+            aria-label="Menu"
+          >
+            <span
+              className="block w-5 h-0.5 rounded transition-all duration-200"
+              style={{
+                background: "hsl(0 0% 80%)",
+                transform: menuOpen ? "rotate(45deg) translateY(5px)" : "none",
+              }}
+            />
+            <span
+              className="block w-5 h-0.5 rounded transition-all duration-200"
+              style={{
+                background: "hsl(0 0% 80%)",
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              className="block w-5 h-0.5 rounded transition-all duration-200"
+              style={{
+                background: "hsl(0 0% 80%)",
+                transform: menuOpen ? "rotate(-45deg) translateY(-5px)" : "none",
+              }}
+            />
+          </button>
+        </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div
+            className="sm:hidden px-4 pb-4 flex flex-col gap-1"
+            style={{ borderTop: "1px solid hsl(220 15% 14%)" }}
+          >
+            {navLinks.map((link) => {
+              const isActive = location === link.href;
+              return (
+                <Link key={link.href} href={link.href}>
+                  <span
+                    className="block w-full text-sm font-semibold px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 mt-1"
+                    style={{
+                      color: isActive ? "hsl(14 100% 57%)" : "hsl(220 10% 65%)",
+                      background: isActive ? "hsla(14,100%,57%,0.10)" : "hsl(220 20% 9%)",
+                      border: isActive ? "1px solid hsla(14,100%,57%,0.25)" : "1px solid hsl(220 15% 13%)",
+                    }}
+                  >
+                    {link.label}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </header>
+    </>
   );
 }
 
@@ -79,8 +143,8 @@ export function Footer() {
       className="border-t"
       style={{ borderColor: "hsl(220 15% 12%)", background: "hsl(220 22% 4%)" }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
@@ -88,17 +152,21 @@ export function Footer() {
               className="w-9 h-9 object-contain shrink-0"
             />
             <div>
-              <span className="font-black text-sm tracking-widest block" style={{ color: "hsl(0 0% 90%)", letterSpacing: "0.12em" }}>ATOMIC FLIX</span>
-              <span className="text-[10px]" style={{ color: "hsl(220 10% 40%)" }}>Application de streaming anime</span>
+              <span className="font-black text-sm tracking-widest block" style={{ color: "hsl(0 0% 90%)", letterSpacing: "0.12em" }}>
+                ATOMIC FLIX
+              </span>
+              <span className="text-[10px]" style={{ color: "hsl(220 10% 40%)" }}>
+                Application de streaming anime
+              </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <span className="text-xs cursor-pointer transition-colors duration-200" style={{ color: "hsl(220 10% 45%)" }}
-                  onMouseEnter={e => ((e.target as HTMLElement).style.color = "hsl(14 100% 57%)")}
-                  onMouseLeave={e => ((e.target as HTMLElement).style.color = "hsl(220 10% 45%)")}
+                <span
+                  className="text-xs cursor-pointer transition-colors duration-200"
+                  style={{ color: "hsl(220 10% 45%)" }}
                 >
                   {link.label}
                 </span>
@@ -108,7 +176,7 @@ export function Footer() {
         </div>
 
         <div
-          className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          className="mt-6 pt-5 flex flex-col sm:flex-row items-center justify-between gap-2"
           style={{ borderTop: "1px solid hsl(220 15% 10%)" }}
         >
           <p className="text-xs" style={{ color: "hsl(220 10% 35%)" }}>
@@ -146,22 +214,22 @@ export function SectionCard({
       style={{ background: "hsl(220 20% 9%)", border: "1px solid hsl(220 15% 14%)" }}
     >
       <div
-        className="px-7 py-5 flex items-center gap-4"
+        className="px-4 sm:px-7 py-4 sm:py-5 flex items-center gap-3 sm:gap-4"
         style={{ background: accentBg, borderBottom: `1px solid ${accentBorder}` }}
       >
         <span
-          className="text-xs font-black tabular-nums shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
-          style={{ background: accentBg, color: accentColor, border: `1px solid ${accentBorder}`, fontSize: "11px" }}
+          className="font-black tabular-nums shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center"
+          style={{ background: accentBg, color: accentColor, border: `1px solid ${accentBorder}`, fontSize: "10px" }}
         >
           {number}
         </span>
-        <h2 className="text-lg font-bold" style={{ color: "hsl(0 0% 95%)" }}>{title}</h2>
+        <h2 className="text-base sm:text-lg font-bold" style={{ color: "hsl(0 0% 95%)" }}>{title}</h2>
       </div>
-      <div className="px-7 py-6">
+      <div className="px-4 sm:px-7 py-5 sm:py-6">
         <p className="text-sm leading-relaxed" style={{ color: "hsl(220 10% 58%)" }}>
           {description}
         </p>
-        {children && <div className="mt-5">{children}</div>}
+        {children && <div className="mt-4 sm:mt-5">{children}</div>}
       </div>
     </div>
   );
@@ -214,8 +282,6 @@ export function Sidebar({
             href="mailto:cidakue02@gmail.com"
             className="text-xs block transition-colors duration-200"
             style={{ color: "hsl(220 10% 50%)", textDecoration: "none" }}
-            onMouseEnter={e => ((e.target as HTMLElement).style.color = "hsl(14 100% 57%)")}
-            onMouseLeave={e => ((e.target as HTMLElement).style.color = "hsl(220 10% 50%)")}
           >
             cidakue02@gmail.com
           </a>

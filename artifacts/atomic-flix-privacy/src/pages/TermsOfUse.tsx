@@ -38,34 +38,34 @@ export default function TermsOfUse() {
   return (
     <div>
       {/* Hero */}
-      <section className="pt-36 pb-14 px-6">
+      <section className="pt-32 sm:pt-36 pb-10 sm:pb-14 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div
-            className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] px-4 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-full mb-5 sm:mb-6"
             style={{ background: "hsla(200,100%,55%,0.10)", color: "hsl(200 100% 60%)", border: "1px solid hsla(200,100%,55%,0.22)" }}
           >
             <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "hsl(200 100% 60%)" }} />
             Avril 2026 — Version 1.0
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black mb-5 leading-tight tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-black mb-4 sm:mb-5 leading-tight tracking-tight">
             Conditions{" "}
             <span style={{ color: "hsl(200 100% 60%)" }}>d'Utilisation</span>
           </h1>
-          <p className="text-base sm:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: "hsl(220 10% 52%)" }}>
+          <p className="text-sm sm:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: "hsl(220 10% 52%)" }}>
             En utilisant ATOMIC FLIX, vous acceptez les présentes conditions. Veuillez les lire attentivement avant d'utiliser l'application.
           </p>
         </div>
       </section>
 
       {/* Divider */}
-      <div className="max-w-6xl mx-auto px-6 mb-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
         <div style={{ height: "1px", background: "hsl(220 15% 13%)" }} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 pb-28 flex gap-14">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-24 sm:pb-28 flex gap-10 lg:gap-14">
         <Sidebar sections={sections} activeSection={activeSection} onScrollTo={scrollTo} />
 
-        <main className="flex-1 min-w-0 max-w-2xl flex flex-col gap-6">
+        <main className="flex-1 min-w-0 max-w-2xl flex flex-col gap-4 sm:gap-6">
 
           <section id="acceptance">
             <SectionCard
