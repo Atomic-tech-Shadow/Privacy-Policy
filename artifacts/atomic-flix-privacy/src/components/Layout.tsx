@@ -28,12 +28,11 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         <Link href="/" style={{ textDecoration: "none" }}>
           <div className="flex items-center gap-3 cursor-pointer group">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm shrink-0 transition-transform duration-200 group-hover:scale-105"
-              style={{ background: "linear-gradient(135deg, hsl(14 100% 57%), hsl(30 100% 50%))", color: "white", boxShadow: "0 0 20px hsla(14,100%,57%,0.3)" }}
-            >
-              AF
-            </div>
+            <img
+              src="/logo.png"
+              alt="ATOMIC FLIX"
+              className="w-10 h-10 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+            />
             <div>
               <span className="font-black text-base tracking-widest block" style={{ color: "hsl(0 0% 96%)", letterSpacing: "0.12em" }}>
                 ATOMIC FLIX
@@ -83,12 +82,11 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs shrink-0"
-              style={{ background: "linear-gradient(135deg, hsl(14 100% 57%), hsl(30 100% 50%))", color: "white" }}
-            >
-              AF
-            </div>
+            <img
+              src="/logo.png"
+              alt="ATOMIC FLIX"
+              className="w-9 h-9 object-contain shrink-0"
+            />
             <div>
               <span className="font-black text-sm tracking-widest block" style={{ color: "hsl(0 0% 90%)", letterSpacing: "0.12em" }}>ATOMIC FLIX</span>
               <span className="text-[10px]" style={{ color: "hsl(220 10% 40%)" }}>Application de streaming anime</span>
